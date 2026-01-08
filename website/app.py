@@ -10,6 +10,9 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 eye_model_path = os.path.join(current_dir, "../model/eye_model.h5")
 drowsy_model_path = os.path.join(current_dir, "../model/drowsy_model.h5")
 
+eye_model = tf.keras.models.load_model(eye_model_path, compile=False)
+drowsy_model = tf.keras.models.load_model(drowsy_model_path, compile=False)
+
 eye_classes = ['Bulging Eyes', 'Cataracts', 'Crossed Eyes', 'Glaucoma', 'Uveitis']
 
 st.set_page_config(page_title="CareLens AI", page_icon="👁️")
@@ -32,7 +35,7 @@ if uploaded:
     eye_input = np.expand_dims(eye_array, axis=0) 
     
 
-    eye_pred = eye_model_path.predict(eye_input)
+    eye_pred = eye_model.predict(eye_input)
     eye_class_index = np.argmax(eye_pred)
     confidence = np.max(eye_pred) * 100
 
@@ -45,7 +48,7 @@ if uploaded:
     d_input = np.expand_dims(d_array, axis=0)
 
 
-    d_pred = drowsy_model_path.predict(d_input)
+    d_pred = drowsy_model.predict(d_input)
     d_class_index = np.argmax(d_pred)
     
 
