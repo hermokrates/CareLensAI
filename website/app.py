@@ -6,8 +6,14 @@ from PIL import Image
 
 # 1. Load Models
 # We use compile=False to speed up loading since we are only predicting, not training
-eye_model = tf.keras.models.load_model("../model/eye_model.h5", compile=False)
-drowsy_model = tf.keras.models.load_model("../model/drowsy_model.h5", compile=False)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Construct the path to the model relative to app.py
+# This works on both local machine and Streamlit Cloud
+eye_model_path = os.path.join(current_dir, "../model/eye_model.h5")
+drowsy_model_path = os.path.join(current_dir, "../model/drowsy_model.h5")
+# eye_model = tf.keras.models.load_model("../model/eye_model.h5", compile=False)
+# drowsy_model = tf.keras.models.load_model("../model/drowsy_model.h5", compile=False)
 
 # 2. Define Class Labels
 # MUST match the alphabetical order of folders in your eye_dataset
